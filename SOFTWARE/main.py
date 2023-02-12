@@ -6,7 +6,7 @@ from modules import serial_communication as sc
 
 def main():
     cap = cv.VideoCapture(0)
-    while (True):
+    while True:
         _, frame = cap.read()
 
         # detecting the color of the object
@@ -20,7 +20,7 @@ sc.communicate.start()
 # wait for hardware , then main work will be started
 
 print("waiting ...")
-while (True):
+while True:
     response = sc.communicate.listener()
 
     if response == "color":
