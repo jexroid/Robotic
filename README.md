@@ -1,15 +1,15 @@
-# 🤖 robotic compotation
+# 🤖 Robotic compotation
 
 ---
 
-## ❗ discription:
+## ❗ Discription:
 This is a project for country level compotation in robotic field.
 The goal is programming a robot which can detect color of object and pick those objects.
 then moving them to special places which we define .
 
 ---
 
-## 📑 requirments
+## 📑 Requirments
 ```yaml
 
 - hardware  : 
@@ -24,13 +24,16 @@ then moving them to special places which we define .
     
 - software (processing image) :
     - Operator module   : Raspberry pi 4 Model B
+    - Operation system  : Ubuntu 22.0
     - Camera            : raspiCam V2.1
+    - SD Card           : lotous 16G
+
     
 ```
 
 ---
 
-## 👥 creators
+## 👥 Creators
 ```yaml
 
 hardware : Mohammad Zakeri
