@@ -14,6 +14,8 @@ def main():
         return color_of_object
 
 
+
+sal
 # start the communication
 sc.communicate.start()
 
