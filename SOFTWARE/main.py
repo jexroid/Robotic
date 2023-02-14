@@ -15,7 +15,7 @@ def main():
 
 
 
-sal
+
 # start the communication
 sc.communicate.start()
 
