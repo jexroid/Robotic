@@ -71,24 +71,16 @@ def color(INPUT):
         for contour in contours:
             cv.drawContours(frame, contour, -1, (0, 255, 0), 3)
 
-        ### mixing the main frame with binary image ###
-        frame_masked = cv.bitwise_and(frame, frame, mask=mask_yellow)
-
         color_pixels = cv.countNonZero(mask_yellow)
         print("pixels :", color_pixels)
 
         if color_pixels > 10000:
             CERTAINITY = CERTAINITY + 1
 
-        # DONE !
-
-        cv.imshow('frame', frame_masked)
-
-
+        
         timer = timer + 1
-        keyexit = cv.waitKey(5) & 0xFF
-        if keyexit == 27:
-            break
+
+
         if CERTAINITY >= 30:
             return True
             
