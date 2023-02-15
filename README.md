@@ -18,8 +18,8 @@ then moving them to special places which we define .
     - Motor driver      : BTS 7960 (3)
     - Encoders          : unkemotorencoder GR42X25 (3)
     - Battery           : Optima 4.5A-12V (2)
-    - Motor             : Festo motor 24V (3)
-    - Wheels:           : Festo Wheels (3)
+    - Motor             : DC motor 'Festo' 24V (3)
+    - Wheels:           : Wheels Festo (3)
     - gripper           :
     
 - software (processing image) :
