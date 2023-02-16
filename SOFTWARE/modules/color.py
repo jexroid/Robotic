@@ -27,7 +27,8 @@ def color(INPUT):
     # making sure and reducing the errors
     CERTAINITY = 0
     timer = 0
-    while(timer < 50):
+    # timer < 50
+    while (True):
         ### defining video captureing ###
         rec, frame = cap.read()
 
@@ -35,30 +36,31 @@ def color(INPUT):
             frame,
             (5, 5),
             0
-            )
-        
+        )
+
         hsv = cv.cvtColor(
             blurred_frame,
             cv.COLOR_BGR2HSV
-            )
-        
+        )
+
         delatedImage = cv.dilate(
             hsv,
             kernel=kernel,
             iterations=1
-            )
-        
-        mask_yellow = cv.inRange(delatedImage,
+        )
+
+        mask_yellow = cv.inRange(
+            delatedImage,
             lower,
             upper
-            )
+        )
 
         closing_morph_image = cv.morphologyEx(
             mask_yellow,
-            cv.MORPH_CLOSE, 
+            cv.MORPH_CLOSE,
             kernel,
             iterations=1
-            )
+        )
 
         ### finding the contours of image ###
         contours, salam = cv.findContours(
@@ -70,6 +72,15 @@ def color(INPUT):
         ### NOW LETS DRAW THE FOUND CONTOURS with condition ###
         for contour in contours:
             cv.drawContours(frame, contour, -1, (0, 255, 0), 3)
+            area = cv.contourArea(contour)
+
+            if int(area) > 1000 and int(area) < 22000:
+                x, y, w, h = cv.boundingRect(contour)
+
+                frame = cv.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 0), 1)
+
+        # resault = cv.rectangle(frame, tuple(approx[0][0]), tuple(approx[2][0]), (0,255,0), 2)
+        cv.imshow('resault', frame)
 
         color_pixels = cv.countNonZero(mask_yellow)
         print("pixels :", color_pixels)
@@ -77,15 +88,16 @@ def color(INPUT):
         if color_pixels > 10000:
             CERTAINITY = CERTAINITY + 1
 
-        
         timer = timer + 1
-
 
         if CERTAINITY >= 30:
             return True
-            
+
     if CERTAINITY <= 30:
         return False
-    
+
     cv.destroyAllWindows()
     cap.release()
+
+
+print(color('b'))
