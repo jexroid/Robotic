@@ -4,12 +4,14 @@ def color(INPUT):
     import numpy as np
 
     cap = cv.VideoCapture(1)
-    kernel = np.ones((6, 6), np.uint8)
+    kernal = np.ones((5, 5), "uint8")
 
-    yellow_range = [np.array([10, 134, 123]), np.array([59, 243, 255])]
-    red_range = [np.array([0, 50, 50]),    np.array([10, 255, 255])]
-    blue_range = [np.array([95, 100, 55]), np.array([133, 255, 255])]
-    green_range = [(np.array([50, 100, 100])), (np.array([70, 255, 255]))]
+    yellow_range = [np.array([0, 167, 117]), np.array([30, 227, 241])]
+    red_range = [np.array([0, 145, 170]),    np.array([10, 255, 255])]
+    blue_range = [np.array([110, 155, 95]), np.array([125, 255, 255])]
+    green_range = [(np.array([45, 100, 55])), (np.array([105, 255, 255]))]
+
+    # For red color
 
     if INPUT == 'y':
         INPUT = yellow_range
@@ -27,44 +29,29 @@ def color(INPUT):
     # making sure and reducing the errors
     CERTAINITY = 0
     timer = 0
-    # timer < 50
-    while (True):
+
+    while (timer < 50):
         ### defining video captureing ###
         rec, frame = cap.read()
 
-        blurred_frame = cv.GaussianBlur(
-            frame,
-            (5, 5),
-            0
-        )
-
         hsv = cv.cvtColor(
-            blurred_frame,
+            frame,
             cv.COLOR_BGR2HSV
         )
 
-        delatedImage = cv.dilate(
-            hsv,
-            kernel=kernel,
-            iterations=1
-        )
-
         mask_yellow = cv.inRange(
-            delatedImage,
+            hsv,
             lower,
             upper
         )
 
-        closing_morph_image = cv.morphologyEx(
-            mask_yellow,
-            cv.MORPH_CLOSE,
-            kernel,
-            iterations=1
-        )
+        color_mask = cv.dilate(mask_yellow, kernel)
+        color_mask = cv.morphologyEx(color_mask, cv.MORPH_CLOSE, kernel)
+        color_mask = cv.morphologyEx(color_mask, cv.MORPH_OPEN, kernel)
 
         ### finding the contours of image ###
         contours, salam = cv.findContours(
-            closing_morph_image,
+            color_mask,
             cv.RETR_TREE,
             cv.CHAIN_APPROX_NONE
         )
@@ -74,13 +61,14 @@ def color(INPUT):
             cv.drawContours(frame, contour, -1, (0, 255, 0), 3)
             area = cv.contourArea(contour)
 
-            if int(area) > 1000 and int(area) < 22000:
+            if int(area) > 1000:
                 x, y, w, h = cv.boundingRect(contour)
 
-                frame = cv.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 0), 1)
+                frame = cv.rectangle(
+                    frame, (x, y), (x + w, y + h), (255, 0, 255), 2)
 
-        # resault = cv.rectangle(frame, tuple(approx[0][0]), tuple(approx[2][0]), (0,255,0), 2)
-        cv.imshow('resault', frame)
+        # cv.imshow('mask green', color_mask)
+        # cv.imshow('resault', frame)
 
         color_pixels = cv.countNonZero(mask_yellow)
         print("pixels :", color_pixels)
@@ -93,11 +81,13 @@ def color(INPUT):
         if CERTAINITY >= 30:
             return True
 
+        # if cv.waitKey(10) & 0xFF == ord('q'):
+        #     cap.release()
+        #     cv.destroyAllWindows()
+        #     break
+
     if CERTAINITY <= 30:
         return False
-
-    cv.destroyAllWindows()
-    cap.release()
 
 
 print(color('b'))
