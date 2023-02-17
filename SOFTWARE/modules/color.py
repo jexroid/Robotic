@@ -52,22 +52,33 @@ def detect():
             for contour in contours:
 
                 area = cv.contourArea(contour)
-
                 color_pixels = cv.countNonZero(mask)
-                print(Fore.GREEN, f"{text} pixels :", Fore.WHITE, color_pixels)
+                
+                # print(Fore.GREEN, f"{text} pixels :", Fore.WHITE, color_pixels)
+                if color_pixels >= 6000:
+                    if int(area) > 1000:
+                        x, y, w, h = cv.boundingRect(contour)
 
-                if int(area) > 1000:
-                    x, y, w, h = cv.boundingRect(contour)
-
-                    frame = cv.rectangle(
-                        frame, (x, y), (x + w, y + h), (255, 255, 20), 2)
-                    frame = cv.putText(
-                        frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
-
-                    
-                    
-
-        
+                        frame = cv.rectangle(
+                            frame, (x, y), (x + w, y + h), (255, 255, 20), 2)
+                        hight = int((((x+w) - x)/2)+x)
+                        width = int((((y+h) - y)/2)+y)
+                        frame = cv.rectangle(
+                            frame, (hight+1, width+1), (hight, width), (255, 255, 20), 2)
+                        frame = cv.putText(
+                            frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
+                        
+                        
+                        if hight < 300:
+                            print("right")
+                        elif hight > 360:
+                            print("left")
+                        elif width < 225:
+                            print("down")
+                        elif width > 265:
+                            print("up")
+                        else:
+                            print("ok")
 
         cv.imshow('mask green', color_mask)
         cv.imshow('resault', frame)
@@ -76,6 +87,3 @@ def detect():
             cap.release()
             cv.destroyAllWindows()
             break
-
-
-print(detect())
