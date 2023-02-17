@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-from modules import color
+from modules import movement
 from modules import serial_communication as sc
 
 

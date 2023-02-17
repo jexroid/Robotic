@@ -2,6 +2,7 @@ def detect():
     from colorama import Fore
     import cv2 as cv
     import numpy as np
+    import serial_communication as sc
 
     cap = cv.VideoCapture(0)
 
@@ -67,15 +68,15 @@ def detect():
                             frame, (hight+1, width+1), (hight, width), (255, 255, 20), 2)
                         frame = cv.putText(
                             frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
-                        
+                        print(width)
                         
                         if hight < 300:
                             print("right")
                         elif hight > 360:
                             print("left")
-                        elif width < 225:
+                        elif width < 375:
                             print("down")
-                        elif width > 265:
+                        elif width > 390:
                             print("up")
                         else:
                             print("ok")
@@ -87,3 +88,5 @@ def detect():
             cap.release()
             cv.destroyAllWindows()
             break
+
+detect()
