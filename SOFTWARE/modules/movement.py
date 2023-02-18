@@ -76,8 +76,10 @@ def detect():
                         
                         if hight < 300:
                             sc.communicate.send("Dr")
+                            print("right")
                         elif hight > 360:
                             sc.communicate.send("Dl")
+                            print("left")
                         elif width < 375:
                             print("down")
                         elif width > 390:
