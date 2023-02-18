@@ -4,6 +4,11 @@ def detect():
     import numpy as np
     import serial_communication as sc
 
+
+
+    sc.communicate.start()
+
+
     cap = cv.VideoCapture(0)
 
     yellow_range = [np.array([0, 167, 117]), np.array([30, 227, 241])]
@@ -12,8 +17,8 @@ def detect():
     green_range = [(np.array([45, 100, 55])), (np.array([105, 255, 255]))]
     kernal = np.ones((5, 5), "uint8")
     # making sure and reducing the errors
-
-    while (True):
+    CERTAINITY = 0
+    while (CERTAINITY < 25):
         ### defining video captureing ###
         rec, frame = cap.read()
 
@@ -68,18 +73,19 @@ def detect():
                             frame, (hight+1, width+1), (hight, width), (255, 255, 20), 2)
                         frame = cv.putText(
                             frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
-                        print(width)
                         
                         if hight < 300:
-                            print("right")
+                            sc.communicate.send("Dr")
                         elif hight > 360:
-                            print("left")
+                            sc.communicate.send("Dl")
                         elif width < 375:
                             print("down")
                         elif width > 390:
                             print("up")
                         else:
-                            print("ok")
+                            CERTAINITY = 0
+                            CERTAINITY = CERTAINITY + 1
+
 
         cv.imshow('mask green', color_mask)
         cv.imshow('resault', frame)

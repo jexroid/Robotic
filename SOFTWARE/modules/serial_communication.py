@@ -22,7 +22,7 @@ class communicate:
 
 
     def send(message):
-            ser.write(f"{message} !\n".encode('utf-8'))
+        ser.write(f"{message} !\n".encode('utf-8'))
 
     def listener():
         try:
