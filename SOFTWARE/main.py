@@ -4,7 +4,7 @@ from modules import movement
 from modules import serial_communication as sc
 
 
-color_of_object = color.color()
+color_of_object = movement.detect()
 
 
 

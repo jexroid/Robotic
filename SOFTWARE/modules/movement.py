@@ -88,5 +88,4 @@ def detect():
             cap.release()
             cv.destroyAllWindows()
             break
-
 detect()
