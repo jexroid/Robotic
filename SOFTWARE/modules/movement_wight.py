@@ -1,15 +1,13 @@
+from colorama import Fore
+import cv2 as cv
+import numpy as np
+from modules import serial_communication as sc
 def detect():
-    from colorama import Fore
-    import cv2 as cv
-    import numpy as np
-    import serial_communication as sc
+    
 
+    # sc.communicate.start()
 
-
-    sc.communicate.start()
-
-
-    cap = cv.VideoCapture(0)
+    cap = cv.VideoCapture(1)
 
     yellow_range = [np.array([0, 167, 117]), np.array([30, 227, 241])]
     red_range = [np.array([0, 145, 170]),    np.array([10, 255, 255])]
@@ -18,7 +16,7 @@ def detect():
     kernal = np.ones((5, 5), "uint8")
     # making sure and reducing the errors
     CERTAINITY = 0
-    while (CERTAINITY < 25):
+    while (CERTAINITY < 50):
         ### defining video captureing ###
         rec, frame = cap.read()
 
@@ -59,10 +57,10 @@ def detect():
 
                 area = cv.contourArea(contour)
                 color_pixels = cv.countNonZero(mask)
-                
+
                 # print(Fore.GREEN, f"{text} pixels :", Fore.WHITE, color_pixels)
                 if color_pixels >= 6000:
-                    if int(area) > 1000:
+                    if int(area) > 4000:
                         x, y, w, h = cv.boundingRect(contour)
 
                         frame = cv.rectangle(
@@ -73,21 +71,12 @@ def detect():
                             frame, (hight+1, width+1), (hight, width), (255, 255, 20), 2)
                         frame = cv.putText(
                             frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
-                        
-                        if hight < 300:
-                            sc.communicate.send("Dr")
-                            print("right")
-                        elif hight > 360:
-                            sc.communicate.send("Dl")
-                            print("left")
-                        elif width < 375:
+                        if width < 360:
                             print("down")
-                        elif width > 390:
+                        elif width > 380:
                             print("up")
                         else:
-                            CERTAINITY = 0
                             CERTAINITY = CERTAINITY + 1
-
 
         cv.imshow('mask green', color_mask)
         cv.imshow('resault', frame)
@@ -96,4 +85,3 @@ def detect():
             cap.release()
             cv.destroyAllWindows()
             break
-detect()
