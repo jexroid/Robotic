@@ -4,11 +4,10 @@ import numpy as np
 from modules import serial_communication as sc
 def detect():
     
-    # import serial_communication as sc
 
 
 
-    # sc.communicate.start()
+    sc.communicate.start()
 
 
     cap = cv.VideoCapture(1)
@@ -77,10 +76,10 @@ def detect():
                             frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
                         
                         if hight < 300:
-                            # sc.communicate.send("Dr")
+                            sc.communicate.send("Dr")
                             print("right")
                         elif hight > 360:
-                            # sc.communicate.send("Dl")
+                            sc.communicate.send("Dl")
                             print("left")                       
                         else:
                             CERTAINITY = CERTAINITY + 1

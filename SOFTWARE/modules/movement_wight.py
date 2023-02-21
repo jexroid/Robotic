@@ -5,7 +5,7 @@ from modules import serial_communication as sc
 def detect():
     
 
-    # sc.communicate.start()
+    sc.communicate.start()
 
     cap = cv.VideoCapture(1)
 
@@ -73,8 +73,10 @@ def detect():
                             frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
                         if width < 360:
                             print("down")
+                            sc.communicate.send("Dd")
                         elif width > 380:
                             print("up")
+                            sc.communicate.send("Du")
                         else:
                             CERTAINITY = CERTAINITY + 1
 
