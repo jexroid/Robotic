@@ -77,10 +77,10 @@ def detect():
                         
                         if hight < 300:
                             sc.communicate.send("Dr")
-                            print("right")
+                            print(Fore.GREEN,"RIGHT", Fore.WHITE," sended to HARDWARE")
                         elif hight > 360:
                             sc.communicate.send("Dl")
-                            print("left")                       
+                            print(Fore.GREEN, "LEFT", Fore.WHITE," sended to HARDWARE")
                         else:
                             CERTAINITY = CERTAINITY + 1
 

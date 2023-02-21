@@ -74,9 +74,11 @@ def detect():
                         if width < 360:
                             print("down")
                             sc.communicate.send("Dd")
+                            print(Fore.GREEN, "DOWN", Fore.WHITE," sended to HARDWARE")
                         elif width > 380:
                             print("up")
                             sc.communicate.send("Du")
+                            print(Fore.GREEN, "UP", Fore.WHITE," sended to HARDWARE")
                         else:
                             CERTAINITY = CERTAINITY + 1
 

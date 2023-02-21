@@ -3,8 +3,9 @@ import numpy as np
 from modules import movement_wight as mw
 from modules import movement_hight as mh
 from modules import serial_communication as sc
+from colorama import Fore
 
-mh.detect()
+
 mw.detect()
 
 
@@ -16,15 +17,15 @@ sc.communicate.start()
 print("waiting ...")
 while True:
     response = sc.communicate.listener()
-
-    if response == "color":
-        print(response)
+    print(Fore.RED,"HARDWARE SAYS : ",response,Fore.WHITE)
+    if response == "move":
+        mh.detect()
         # run the color detection
 
         # print(color_of_object, "is the color of object")
         # sc.communicate.send(color_of_object)
 
-        # print(color_of_object, "has sended to HARDWARE")
+        
         break
         
     print("the job is done")
