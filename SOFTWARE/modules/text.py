@@ -4,6 +4,14 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Users\kigir\Documents\TESSERACT\tes
 def rext_reader(frame):
 
     resault = (pytesseract.image_to_string(frame))
-    return resault
+    if "p" in resault == True:
+        return resault
+    elif "P" in resault:
+        return resault
+    
+
+        
+
+    
 
 

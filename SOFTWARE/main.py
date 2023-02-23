@@ -13,15 +13,16 @@ paper_in_room_tow = []
 paper_in_room_three = []
 paper_in_room_four = []
 
-for i in going_to_shelf:
-    pashmak = i
-    sc.communicate.send(pashmak)
-    while True:
-        HARDWARE = sc.communicate.listener()
-        if HARDWARE == 'ok':
-            break
+def moving(List):
+    for i in List:
+        pashmak = i
+        sc.communicate.send(pashmak)
+        while True:
+            HARDWARE = sc.communicate.listener()
+            if HARDWARE == 'ok':
+                break
 
-
+moving(going_to_shelf)
 # wait for hardware , then main work will be started
 
 # print("waiting ...")
