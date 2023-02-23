@@ -5,8 +5,6 @@ from modules import serial_communication as sc
 def detect():
     
 
-    sc.communicate.start()
-
     cap = cv.VideoCapture(1)
 
     yellow_range = [np.array([0, 167, 117]), np.array([30, 227, 241])]
@@ -72,18 +70,15 @@ def detect():
                         frame = cv.putText(
                             frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
                         if width < 360:
-                            print("down")
                             sc.communicate.send("Dd")
                             print(Fore.GREEN, "DOWN", Fore.WHITE," sended to HARDWARE")
                         elif width > 380:
-                            print("up")
                             sc.communicate.send("Du")
                             print(Fore.GREEN, "UP", Fore.WHITE," sended to HARDWARE")
                         else:
                             CERTAINITY = CERTAINITY + 1
-
-        cv.imshow('mask green', color_mask)
-        cv.imshow('resault', frame)
+        
+        cv.imshow('mask green', frame)
 
         if cv.waitKey(10) & 0xFF == ord('q'):
             cap.release()

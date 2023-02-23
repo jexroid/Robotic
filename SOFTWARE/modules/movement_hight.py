@@ -3,12 +3,6 @@ import cv2 as cv
 import numpy as np
 from modules import serial_communication as sc
 def detect():
-    
-
-
-
-    sc.communicate.start()
-
 
     cap = cv.VideoCapture(1)
 
@@ -85,8 +79,7 @@ def detect():
                             CERTAINITY = CERTAINITY + 1
 
 
-        cv.imshow('mask green', color_mask)
-        cv.imshow('resault', frame)
+        cv.imshow('mask green', frame)
 
         if cv.waitKey(10) & 0xFF == ord('q'):
             cap.release()
