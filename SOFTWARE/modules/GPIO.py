@@ -13,7 +13,7 @@ class motor:
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(DC_motor, GPIO.OUT)
 
-
+    
     def clock(time):
         import RPi.GPIO as GPIO
         while (certainity < time):
