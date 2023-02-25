@@ -65,14 +65,14 @@ def detect(color):
                     #     frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
 
                     if hight < 300:
-                        sc.communicate.send("x,-0.01")
+                        sc.communicate.send("x,-0.04")
                         if sc.communicate.listener() == "ok":
                             pass
 
                         print(Fore.GREEN, "RIGHT", Fore.WHITE,
                               " sended to HARDWARE")
                     elif hight > 360:
-                        sc.communicate.send("x,0.01")
+                        sc.communicate.send("x,0.04")
                         if sc.communicate.listener() == "ok":
                             pass
 
@@ -81,9 +81,12 @@ def detect(color):
                     else:
                         CERTAINITY = CERTAINITY + 1
 
-        cv.imshow('mask green', color_mask)
+        # cv.imshow('mask green', color_mask)
 
         if cv.waitKey(10) & 0xFF == ord('q'):
             cap.release()
             cv.destroyAllWindows()
             break
+
+
+detect("blue")

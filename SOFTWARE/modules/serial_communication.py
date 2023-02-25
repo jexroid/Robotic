@@ -7,7 +7,7 @@ class communicate:
     global ser , ser2
     # ser variable ( the laws of communication )
     ser = serial.Serial(
-            port='/dev/ttyUSB1',
+            port='/dev/ttyUSB0',
             baudrate = 9600,
             timeout = 1.0
         )
@@ -18,7 +18,7 @@ class communicate:
 
 
     ser2 = serial.Serial(
-            port='/dev/ttyUSB0',
+            port='/dev/ttyUSB1',
             baudrate = 9600,
             timeout = 1.0
         )
@@ -28,7 +28,7 @@ class communicate:
     ser2.reset_input_buffer()
 
     def send(message):
-        ser.write(f"{message} !\n".encode('utf-8'))
+        ser.write(f"{message} \n".encode('utf-8'))
 
     def listener():
         try:
@@ -44,9 +44,9 @@ class communicate:
     def stop():
         ser.close()
 
-    def send2(message):
-        ser2.write(f"{message} !\n".encode('utf-8'))
-    def listener2():
+    def send_bazo(message):
+        ser2.write(f"{message} \n".encode('utf-8'))
+    def listener_bazo():
         try:
             while ser2.in_waiting <= 0:
                 time.sleep(0.01)
@@ -56,5 +56,5 @@ class communicate:
             print("closing the communication")
 
         return responser
-    def stop2():
+    def stop_bazo():
         ser2.close()

@@ -50,8 +50,8 @@ def detect(color):
             area = cv.contourArea(contour)
             color_pixels = cv.countNonZero(mask)
             # print(Fore.GREEN, f"{text} pixels :", Fore.WHITE, color_pixels)
-            if color_pixels >= 6000:
-                if int(area) > 4000:
+            if color_pixels >= 2000:
+                if int(area) > 500:
                     x, y, w, h = cv.boundingRect(contour)
                     frame = cv.rectangle(
                         frame, (x, y), (x + w, y + h), (255, 255, 20), 2)
@@ -61,24 +61,17 @@ def detect(color):
                         frame, (hight+1, width+1), (hight, width), (255, 255, 20), 2)
                     # frame = cv.putText(
                     #     frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
-                    if width < 360:
-                        sc.communicate.send("Dd")
-                        sc.communicate.send("x,-0.01")
-                        if sc.communicate.listener() == "ok":
-                            pass
-                        
-                        print(Fore.GREEN, "DOWN", Fore.WHITE," sended to HARDWARE")
-                    elif width > 380:
-                        sc.communicate.send("y,0.01")
-                        if sc.communicate.listener() == "ok":
-                            pass
-                        
-                        sc.communicate.send("Du")
-                        print(Fore.GREEN, "UP", Fore.WHITE," sended to HARDWARE")
+                    if width < 170:
+                        sc.communicate.send(1)
+
+                        print(Fore.GREEN, Fore.WHITE, " sended to HARDWAR")
+                    elif width > 300:
+                        bazo = bazo + 1
+                        sc.communicate.send(2)
+                        print(Fore.GREEN, Fore.WHITE, " sended to HARDWARE")
                     else:
                         CERTAINITY = CERTAINITY + 1
     
-        cv.imshow('mask green', frame)
 
         if cv.waitKey(10) & 0xFF == ord('q'):
             cap.release()
