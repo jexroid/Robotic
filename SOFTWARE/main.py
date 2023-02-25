@@ -7,8 +7,7 @@ from modules import text
 from colorama import Fore
 
 
-going_to_shelf = ["x,0.56", "y,0.56", "x,0.6",
-                  "y,-0.11", "y,0.11", "x,-0.6", "y,-0.56", "x,-0.56"]
+going_to_shelf = ["x,0.56", "y,0.56", "x,0.6", "y,-0.11", "y,0.11", "x,-0.6", "y,-0.56", "x,-0.56"]
 shelf_returning_to_start_point = ["y,0.4"]
 paper_in_room_one = []
 returning_from_room_one_to_start_point = []
