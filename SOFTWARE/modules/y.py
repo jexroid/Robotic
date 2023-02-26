@@ -63,10 +63,8 @@ def detect(color):
                     #     frame, text, (x, y), cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 20))
                     if width < 170:
                         sc.communicate.send(1)
-
                         print(Fore.GREEN, Fore.WHITE, " sended to HARDWAR")
                     elif width > 300:
-                        bazo = bazo + 1
                         sc.communicate.send(2)
                         print(Fore.GREEN, Fore.WHITE, " sended to HARDWARE")
                     else:

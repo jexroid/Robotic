@@ -89,4 +89,3 @@ def detect(color):
             break
 
 
-detect("blue")
