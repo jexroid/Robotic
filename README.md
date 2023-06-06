@@ -40,3 +40,5 @@ hardware : Mohammad Zakeri
 
 software : Amirreza Farzan
 ```
+
+![project](https://img.shields.io/github/languages/code-size/jexroid/Robotic?color=green&label=PROJECT%20SIZE&style=for-the-badge)
